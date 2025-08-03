@@ -1,0 +1,247 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Latin Chaos - Grupos</title>
+  <link rel="stylesheet" href="estilos/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook&display=swap" rel="stylesheet">
+  <style>
+    .group-layout {
+      display: flex;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    .group-info {
+      width: 25%;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid gold;
+      border-radius: 10px;
+      padding: 1rem;
+      color: white;
+      font-family: 'Georgia', serif;
+    }
+
+    .info-box {
+      margin-bottom: 1.5rem;
+    }
+
+    .group-tables {
+      width: 75%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .group-row-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .scoreboard {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid gold;
+      border-radius: 10px;
+      padding: 1rem;
+      color: white;
+    }
+
+    .scoreboard h3,
+    .group-header {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background-color: rgba(255, 215, 0, 0.15);
+      padding: 0.5rem;
+      border-bottom: 1px solid gold;
+    }
+
+    table.group-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    table.group-table th,
+    table.group-table td {
+      border: 1px solid gold;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    table.group-table th {
+      background-color: rgba(255, 215, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <img src="img/logo.png" class="logo" alt="Latin Chaos">
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="grupos.html">Grupos</a></li>
+        <li><a href="calendario.html">Calendario</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="group-layout">
+    <!-- Columna izquierda -->
+  <aside class="group-info">
+    <div class="info-box">
+      <h2>Torneo Latin Chaos</h2>
+      <p><strong>Mapa:</strong> Survival Chaos</p>
+      <p><strong>Formato:</strong> Single(Solitario)</p>
+      <p><strong>Duración:</strong> 09/08 - 20/08</p>
+    </div>
+
+    <div class="info-box">
+      <h3>Reglas</h3>
+      <ul>
+        <li>28 jugadores</li>
+        <li>4 grupos (7 jugadores cada uno)</li>
+        <li>Clasifican 2 por grupo</li>
+        <li>FFA en grupos / Bo1 en llaves</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <h3>Fase de Grupos</h3>
+      <ul>
+        <li>4 grupos: A, B, C y D (7 jugadores)</li>
+        <li>Partidas los fines de semana</li>
+        <li><strong>Puntaje:</strong> 1º: 3 pts / 2º: 2 pts / 3º: 1 pt / 4º: -1 pt</li>
+        <li>Clasifican 2 por grupo a semifinal</li>
+        <li>Cada clasificado gana $5 (8 premiados)</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <h3>Segunda Fase</h3>
+      <ul>
+        <li><strong>Semifinal en duplas:</strong> A vs C y B vs D</li>
+        <li>Duplas ganadoras ganan $10</li>
+        <li>Luego se reagrupan a modo individual en 2 nuevos grupos</li>
+        <li>Finalistas salen de cada grupo + mejor score + salvado por votación</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <h3>Premios Finales</h3>
+      <ul>
+        <li>1º lugar: $50</li>
+        <li>2º lugar: $10</li>
+        <li>3º lugar: $5</li>
+        <li>4º lugar: eliminado por manco 😅</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <h3>Clasificación</h3>
+      <p><span style="color: #ffd700;">Top 1</span> → Pasa directo a semifinal.</p>
+      <p><span style="color: #ffdd99;">Top 2 y 3</span> → A cuartos.</p>
+      <p><span style="color: #aaa;">Top 4</span> → Repechaje (bracket bajo).</p>
+    </div>
+
+    <div class="info-box">
+      <h3>Reglamento Rápido</h3>
+      <ul>
+        <li>Se permite reemplazo 1 vez (con puntaje)</li>
+        <li>15-20min de tolerancia. Luego, W.O.</li>
+        <li>Chat libre solo si todos están de acuerdo</li>
+        <li>Faltas graves: expulsión directa</li>
+        <li>RMK solo si cae antes del min 10</li>
+      </ul>
+      <p><em>* Las reglas pueden ajustarse según necesidad junto al "council".</em></p>
+    </div>
+  </aside>
+
+    <!-- Columna derecha con 4 grupos (2x2) -->
+    <section class="group-tables">
+      <div class="group-grid">
+        <!-- Grupo A -->
+        <div class="scoreboard">
+          <div class="group-header">Grupo A</div>
+          <div class="group-table-alt">
+            <div class="group-row-alt group-row-header">
+              <div>Jugador</div>
+              <div>Victorias</div>
+              <div>Derrotas</div>
+              <div>Puntos</div>
+            </div>
+            <div class="group-row-alt"><div>Kisestyle</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Corlione</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Fallen</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Alanrogamer</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>McPollo</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Elbeta</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>T4v0</div><div>0</div><div>0</div><div>0</div></div>
+          </div>
+        </div>
+
+        <!-- Grupo B -->
+        <div class="scoreboard">
+          <div class="group-header">Grupo B</div>
+          <div class="group-table-alt">
+            <div class="group-row-alt group-row-header">
+              <div>Jugador</div>
+              <div>Victorias</div>
+              <div>Derrotas</div>
+              <div>Puntos</div>
+            </div>
+            <div class="group-row-alt"><div>LoaLegitimo</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Rafa</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Settax</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Perro</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Chiclezito</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Andreslopera</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Izzyko</div><div>0</div><div>0</div><div>0</div></div>
+          </div>
+        </div>
+
+        <!-- Grupo C -->
+        <div class="scoreboard">
+          <div class="group-header">Grupo C</div>
+          <div class="group-table-alt">
+            <div class="group-row-alt group-row-header">
+              <div>Jugador</div>
+              <div>Victorias</div>
+              <div>Derrotas</div>
+              <div>Puntos</div>
+            </div>
+            <div class="group-row-alt"><div>Arleking</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Bliztec</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Fenix</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Chandon</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Nikillou</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Moonglide</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Diegoyz</div><div>0</div><div>0</div><div>0</div></div>
+          </div>
+        </div>
+
+        <!-- Grupo D -->
+        <div class="scoreboard">
+          <div class="group-header">Grupo D</div>
+          <div class="group-table-alt">
+            <div class="group-row-alt group-row-header">
+              <div>Jugador</div>
+              <div>Victorias</div>
+              <div>Derrotas</div>
+              <div>Puntos</div>
+            </div>
+            <div class="group-row-alt"><div>Ufgark</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>AESM</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>JohanEspitia</div><div>1</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Hengore</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>CloudNine</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>ZergAmable</div><div>0</div><div>0</div><div>0</div></div>
+            <div class="group-row-alt"><div>Nachobbi</div><div>0</div><div>0</div><div>0</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

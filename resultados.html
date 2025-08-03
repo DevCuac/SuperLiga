@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultados Pick'em - Latin Chaos</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body {
+      background-color: #111;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00ffaa;
+      margin-bottom: 40px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #1e1e1e;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #333;
+    }
+
+    th {
+      background-color: #2a2a2a;
+      color: #00ffaa;
+    }
+
+    tr:hover {
+      background-color: #292929;
+    }
+
+    .acierto {
+      color: #00ff88;
+      font-weight: bold;
+    }
+
+    .fallo {
+      color: #ff6666;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🏆 Resultados Pick'em</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Usuario</th>
+        <th>Aciertos</th>
+        <th>Fallos</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody id="tabla-resultados"></tbody>
+  </table>
+
+  <script>
+    const SUPABASE_URL = 'https://TU_PROYECTO.supabase.co';
+    const SUPABASE_KEY = 'eyJhb...';
+
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const tabla = document.getElementById("tabla-resultados");
+
+    function cargarPickems() {
+      const usuarios = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith("pickem_")) {
+          const pickem = JSON.parse(localStorage.getItem(key));
+          usuarios.push(pickem);
+        }
+      }
+      return usuarios;
+    }
+
+    async function cargarPartidas() {
+      const { data, error } = await supabase
+        .from('partidas')
+        .select('ganador, jugadores')
+        .order('fecha', { ascending: false });
+
+      if (error) {
+        console.error("❌ Error al cargar partidas:", error);
+        return [];
+      }
+
+      // Agrupar por grupo ficticio basado en jugador
+      const ganadoresPorGrupo = {}; // grupoA => JugadorX
+
+      data.forEach(p => {
+        // Ejemplo: usar el nombre del grupo por facción o por jugadores predefinidos
+        const grupo = Object.entries(grupoReferencias).find(([grupo, lista]) =>
+          lista.some(j => p.jugadores.some(jp => jp.nombre === j))
+        )?.[0];
+
+        if (grupo && !ganadoresPorGrupo[grupo]) {
+          ganadoresPorGrupo[grupo] = p.ganador;
+        }
+      });
+
+      return ganadoresPorGrupo;
+    }
+
+    // Referencia cruzada: quién pertenece a qué grupo
+    const grupoReferencias = {
+      grupoA: ['Jugador1', 'Jugador2', 'Jugador3', 'Jugador4'],
+      grupoB: ['Jugador5', 'Jugador6', 'Jugador7', 'Jugador8'],
+      grupoC: ['Jugador9', 'Jugador10', 'Jugador11', 'Jugador12']
+    };
+
+    async function comparar() {
+      const usuarios = cargarPickems();
+      const ganadores = await cargarPartidas();
+
+      usuarios.forEach(user => {
+        let aciertos = 0;
+        let fallos = 0;
+
+        for (const [grupo, pick] of Object.entries(user.picks)) {
+          if (ganadores[grupo]) {
+            if (pick === ganadores[grupo]) {
+              aciertos++;
+            } else {
+              fallos++;
+            }
+          }
+        }
+
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+          <td>${user.usuario}</td>
+          <td class="acierto">${aciertos}</td>
+          <td class="fallo">${fallos}</td>
+          <td>${aciertos + fallos}</td>
+        `;
+        tabla.appendChild(fila);
+      });
+
+      // Ordenar por aciertos
+      [...tabla.rows]
+        .sort((a, b) => b.cells[1].textContent - a.cells[1].textContent)
+        .forEach(row => tabla.appendChild(row));
+    }
+
+    comparar();
+  </script>
+</body>
+</html>

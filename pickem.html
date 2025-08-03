@@ -1,0 +1,69 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Pick'em - Latin Chaos</title>
+  <link rel="stylesheet" href="estilos/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook&display=swap" rel="stylesheet">
+  <script src="js/env.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabaseClient.js"></script>
+  <script defer src="js/pickem.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <img src="img/logo.png" class="logo" alt="Latin Chaos">
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="grupos.html">Grupos</a></li>
+        <li><a href="llaves.html">Llaves</a></li>
+        <li><a href="pickem.html">Pickem</a></li>
+        <li><a href="partidas.html">Estadísticas</a></li>
+        <li><a href="ranking.html">Ranking</a></li>
+        <li><a href="ranking.html">Calendario</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <form id="pickem-form">
+      <label for="nombre">Tu nombre:</label>
+      <input type="text" id="nombre" required>
+
+      <div class="info-box">
+        <h3>Grupo A</h3>
+        <select id="grupoA">
+          <option value="">Selecciona un jugador</option>
+          <option value="Jugador1">Jugador1</option>
+          <option value="Jugador2">Jugador2</option>
+          <option value="Jugador3">Jugador3</option>
+          <option value="Jugador4">Jugador4</option>
+        </select>
+      </div>
+
+      <div class="info-box">
+        <h3>Grupo B</h3>
+        <select id="grupoB">
+          <option value="">Selecciona un jugador</option>
+          <option value="Jugador5">Jugador5</option>
+          <option value="Jugador6">Jugador6</option>
+          <option value="Jugador7">Jugador7</option>
+          <option value="Jugador8">Jugador8</option>
+        </select>
+      </div>
+
+      <div class="info-box">
+        <h3>Grupo C</h3>
+        <select id="grupoC">
+          <option value="">Selecciona un jugador</option>
+          <option value="Jugador9">Jugador9</option>
+          <option value="Jugador10">Jugador10</option>
+          <option value="Jugador11">Jugador11</option>
+          <option value="Jugador12">Jugador12</option>
+        </select>
+      </div>
+
+      <button type="button" onclick="guardarPicks()">Guardar Picks</button>
+    </form>
+  </main>
+</body>
+</html>

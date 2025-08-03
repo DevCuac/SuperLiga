@@ -1,0 +1,80 @@
+[
+  {
+    "fecha": "09/08/2025",
+    "hora": "6:00pm",
+    "modo": "FFA",
+    "grupo": "Grupo A",
+    "jugadores": ["Corlione", "Kisestyle", "T4v0", "Elbeta"]
+    
+  },
+  {
+    "fecha": "09/08/2025",
+    "hora": "7:00pm",
+    "modo": "FFA",
+    "grupo": "Grupo A",
+    "jugadores": ["Alanrogamer", "Fallen", "McPollo", "Reserva1"]
+    
+  },
+  {
+    "fecha": "09/08/2025",
+    "hora": "8:00pm",
+    "modo": "FFA",
+    "grupo": "Grupo B",
+    "jugadores": ["Rafa", "Izzyko", "Andreslopera", "Settax"]
+    
+  },
+  {
+    "fecha": "09/08/2025",
+    "hora": "9:00pm",
+    "modo": "FFA",
+    "grupo": "Grupo B",
+    "jugadores": ["Perro", "Chiclezito", "LoaLegitimo", "Reserva2"]
+    
+  },
+
+
+  
+  {
+    "fecha": "10/08/2025",
+    "hora": "6:00pm",
+    "modo": "FFA",
+    "grupo": "Grupo C",
+    "jugadores": ["Fenix", "Bliztec", "Arleking", "Moonglidd"]
+    
+  },
+  {
+    "fecha": "10/08/2025",
+    "hora": "7:00pm",
+    "modo": "FFA",
+    "grupo": "Grupo C",
+    "jugadores": ["Diegoyz", "Nickillou", "Chandon", "Reserva3"]
+    
+  },
+  {
+    "fecha": "10/08/2025",
+    "hora": "8:00pm",
+    "modo": "FFA",
+    "grupo": "Grupo D",
+    "jugadores": ["AESM", "ZergAmable", "Nachobbi", "JohanEspitia"]
+    
+  },
+  {
+    "fecha": "10/08/2025",
+    "hora": "9:00pm",
+    "modo": "FFA",
+    "grupo": "Grupo D",
+    "jugadores": ["Hengore", "Ufgark", "CloudNine", "Reserva4"]
+    
+  },
+
+
+
+  {
+    "fecha": "09/08/2025",
+    "hora": "9:00pm",
+    "modo": "FFA",
+    "grupo": "Grupo B",
+    "jugadores": ["Perro", "Chiclezito", "LoaLegitimo", "Reserva2"]
+    
+  }
+]

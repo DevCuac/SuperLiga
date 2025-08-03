@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calendario de Duelos - Latin Chaos</title>
+  <link rel="stylesheet" href="estilos/styles.css">
+</head>
+<body class="calendario-body">
+  <header class="navbar">
+    <img src="img/logo.png" class="logo" alt="Latin Chaos">
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="grupos.html">Grupos</a></li>
+        <li><a href="calendario.html">Calendario</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="calendario-container">
+    <h1 class="titulo-calendario">📅 Calendario de Duelos</h1>
+    <div id="calendario-lista" class="calendario-lista"></div>
+  </main>
+
+<aside class="indicaciones-box">
+  <h3>Indicaciones Generales</h3>
+  <div>
+    <strong>Puntajes:</strong>
+    <p>3 - 2 - 2 - 1</p>
+  </div>
+  <div>
+    <strong>Modalidad:</strong>
+    <p>Raza random, Bonus free</p>
+  </div>
+  <div>
+    <strong>Prohibiciones:</strong>
+    <p>Únicamente el T3 Gyrocopters de los Dwarfs.</p>
+  </div>
+</aside>
+
+  <script>
+    async function cargarCalendario() {
+      const response = await fetch('duelos.json');
+      const duelos = await response.json();
+      const container = document.getElementById("calendario-lista");
+
+      duelos.forEach(duelo => {
+        const card = document.createElement("div");
+        card.className = "duelo-card";
+        card.innerHTML = `
+        <div class="duelo-fecha">${duelo.fecha} - ${duelo.hora}</div>
+        <div class="duelo-jugadores">
+            ${duelo.jugadores.map(j => `<span class="jugador">${j}</span>`).join('')}
+        </div>
+        <div class="duelo-detalles">
+            <span class="modo">🗡️ ${duelo.modo}</span>
+            <span class="grupo">📍 ${duelo.grupo}</span>
+        </div>
+        ${duelo.detalle ? `<div class="duelo-extra">${duelo.detalle}</div>` : ''}
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    cargarCalendario();
+  </script>
+</body>
+</html>
