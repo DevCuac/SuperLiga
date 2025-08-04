@@ -65,16 +65,5 @@
     "grupo": "Grupo D",
     "jugadores": ["Hengore", "Ufgark", "CloudNine", "Reserva4"]
     
-  },
-
-
-
-  {
-    "fecha": "09/08/2025",
-    "hora": "9:00pm",
-    "modo": "FFA",
-    "grupo": "Grupo B",
-    "jugadores": ["Perro", "Chiclezito", "LoaLegitimo", "Reserva2"]
-    
   }
 ]
