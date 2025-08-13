@@ -1,0 +1,90 @@
+[
+  {
+    "fecha": "2025-08-09",
+    "fase": "Grupos",
+    "grupo": "A",
+    "jugadores": [
+      { "nombre": "Elbeta", "pos": 1 },
+      { "nombre": "T4v0", "pos": 2 },
+      { "nombre": "Kisestyle", "pos": 3 },
+      { "nombre": "Corlione", "pos": 4 }
+    ]
+  },
+  {
+    "fecha": "2025-08-09",
+    "fase": "Grupos",
+    "grupo": "A",
+    "jugadores": [
+      { "nombre": "Alanrogamer", "pos": 1 },
+      { "nombre": "Fallen", "pos": 3 },
+      { "nombre": "Reserva 1", "pos": 2 },
+      { "nombre": "McPollo", "pos": 4 }
+    ]
+  },
+  {
+    "fecha": "2025-08-09",
+    "fase": "Grupos",
+    "grupo": "B",
+    "jugadores": [
+      { "nombre": "Andreslopera", "pos": 1 },
+      { "nombre": "Rafa", "pos": 3 },
+      { "nombre": "Settax", "pos": 2 },
+      { "nombre": "Izzyko", "pos": 4 }
+    ]
+  },
+  {
+    "fecha": "2025-08-09",
+    "fase": "Grupos",
+    "grupo": "B",
+    "jugadores": [
+      { "nombre": "Reserva 2", "pos": 1 },
+      { "nombre": "LoaLegitimo", "pos": 3 },
+      { "nombre": "Perro", "pos": 2 },
+      { "nombre": "Chiclezito", "pos": 4 }
+    ]
+  },
+  {
+    "fecha": "2025-08-10",
+    "fase": "Grupos",
+    "grupo": "C",
+    "jugadores": [
+      { "nombre": "Fenix", "pos": 1 },
+      { "nombre": "Moonglide", "pos": 3 },
+      { "nombre": "Arleking", "pos": 2 },
+      { "nombre": "Bliztec", "pos": 4 }
+    ]
+  },
+  {
+    "fecha": "2025-08-10",
+    "fase": "Grupos",
+    "grupo": "C",
+    "jugadores": [
+      { "nombre": "Diegoyz", "pos": 1 },
+      { "nombre": "Nikillou", "pos": 3 },
+      { "nombre": "Chandon", "pos": 2 },
+      { "nombre": "Reserva 3", "pos": 4 }
+    ]
+  },
+  {
+    "fecha": "2025-08-10",
+    "fase": "Grupos",
+    "grupo": "D",
+    "jugadores": [
+      { "nombre": "ZergAmable", "pos": 1 },
+      { "nombre": "AESM", "pos": 3 },
+      { "nombre": "Nachobbi", "pos": 2 },
+      { "nombre": "JohanEspitia", "pos": 4 }
+    ]
+  },
+  {
+    "fecha": "2025-08-10",
+    "fase": "Grupos",
+    "grupo": "D",
+    "jugadores": [
+      { "nombre": "Hengore", "pos": 1 },
+      { "nombre": "CloudNine", "pos": 3 },
+      { "nombre": "Ufgark", "pos": 2 },
+      { "nombre": "Reserva 4", "pos": 4 }
+    ]
+  }
+]

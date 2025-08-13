@@ -7,7 +7,7 @@
  */
 
 /* ====================== CONFIG ======================= */
-const REFRESH_MS = 60000; // auto-refresh cada 60s (0 para desactivar)
+const REFRESH_MS = 20000; // auto-refresh cada 60s (0 para desactivar)
 const CANDIDATE_PATHS = [
   'data/resultados.json',
   '../data/resultados.json',
