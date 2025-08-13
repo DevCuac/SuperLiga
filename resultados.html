@@ -1,158 +1,120 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Resultados Pick'em - Latin Chaos</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <meta charset="UTF-8" />
+  <title>Resultados - Latin Chaos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="estilos/styles.css" />
   <style>
-    body {
-      background-color: #111;
-      color: #f0f0f0;
-      font-family: 'Segoe UI', sans-serif;
-      padding: 30px;
+    /* Overrides específicos para layout 4 columnas (claros y compactos) */
+    .results-table .results-head {
+      display: grid;
+      grid-template-columns: 140px 90px 1fr 220px; /* Fecha | Grupo | Jugadores | Ganador */
+      gap: 0;
     }
-
-    h1 {
-      text-align: center;
-      color: #00ffaa;
-      margin-bottom: 40px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: #1e1e1e;
-    }
-
-    th, td {
-      padding: 12px;
-      text-align: left;
+    .results-row {
+      display: grid;
+      grid-template-columns: 140px 90px 1fr 220px;
+      align-items: center;
+      padding: .8rem 1rem;
       border-bottom: 1px solid #333;
     }
+    .results-row:nth-child(even){ background: rgba(255,255,255,.03); }
 
-    th {
-      background-color: #2a2a2a;
-      color: #00ffaa;
+    .players-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .35rem .75rem;
+      line-height: 1.2;
+    }
+    .player-chip {
+      background: rgba(0,0,0,.35);
+      border: 1px solid #665018;
+      border-radius: 6px;
+      padding: .25rem .5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      white-space: nowrap;
+    }
+    .medal { font-size: 1rem; line-height: 1; }
+    .gold   { color: #ffd700; }
+    .silver { color: #c0c0c0; }
+    .bronze { color: #cd7f32; }
+    .pos4   { color: #aaaaaa; }
+
+    .winner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(255,215,0,.12);
+      border: 1px solid #a67c00;
+      border-radius: 8px;
+      padding: .35rem .6rem;
+      font-weight: 600;
+      color: #ffeb99;
     }
 
-    tr:hover {
-      background-color: #292929;
+    /* Barra de controles (opcional) */
+    .controls {
+      display:flex;gap:1rem;align-items:center;
+      padding:.75rem 1rem;background:rgba(0,0,0,.35);border-bottom:1px solid #333
     }
-
-    .acierto {
-      color: #00ff88;
-      font-weight: bold;
-    }
-
-    .fallo {
-      color: #ff6666;
-      font-weight: bold;
-    }
+    .controls input, .controls select { background:#1c1c1c;border:1px solid #555;color:#fff;border-radius:6px;padding:.35rem .5rem; }
+    .controls .btn { background:#ffb200;color:#000;border:none;border-radius:6px;padding:.45rem .7rem;cursor:pointer; }
+    .controls .btn:hover { background:#ffd700; }
   </style>
 </head>
 <body>
-  <h1>🏆 Resultados Pick'em</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Usuario</th>
-        <th>Aciertos</th>
-        <th>Fallos</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody id="tabla-resultados"></tbody>
-  </table>
+  <header class="navbar">
+    <img src="img/logo.png" alt="Latin Chaos Logo" class="logo" />
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="grupos.html">Grupos</a></li>
+        <li><a href="calendario.html">Calendario</a></li>
+        <li><a href="resultados.html" class="active">Resultados</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <script>
-    const SUPABASE_URL = 'https://TU_PROYECTO.supabase.co';
-    const SUPABASE_KEY = 'eyJhb...';
+  <main class="group-layout" style="padding:2rem;">
+    <section class="group-tables" style="flex:1; margin:0 auto; max-width:1100px;">
+      <div class="scoreboard">
+        <div class="group-header" id="titulo-resultados">Resultados</div>
 
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    const tabla = document.getElementById("tabla-resultados");
+        <div class="controls">
+          <label style="display:flex;align-items:center;gap:.5rem;">
+            Grupo
+            <select id="filtro-grupo">
+              <option value="">Todos</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
+          </label>
+          <label style="display:flex;align-items:center;gap:.5rem;">
+            Buscar jugador
+            <input type="text" id="buscar-jugador" placeholder="Nombre..." />
+          </label>
+          <button id="btn-refrescar" class="btn">Refrescar</button>
+          <span id="estado-carga" style="opacity:.8"></span>
+        </div>
 
-    function cargarPickems() {
-      const usuarios = [];
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.startsWith("pickem_")) {
-          const pickem = JSON.parse(localStorage.getItem(key));
-          usuarios.push(pickem);
-        }
-      }
-      return usuarios;
-    }
+        <div class="group-table results-table">
+          <div class="group-row group-header-row results-head">
+            <div>Fecha</div>
+            <div>Grupo</div>
+            <div>Jugadores</div>
+            <div>Ganador</div>
+          </div>
+          <div id="resultados-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    async function cargarPartidas() {
-      const { data, error } = await supabase
-        .from('partidas')
-        .select('ganador, jugadores')
-        .order('fecha', { ascending: false });
-
-      if (error) {
-        console.error("❌ Error al cargar partidas:", error);
-        return [];
-      }
-
-      // Agrupar por grupo ficticio basado en jugador
-      const ganadoresPorGrupo = {}; // grupoA => JugadorX
-
-      data.forEach(p => {
-        // Ejemplo: usar el nombre del grupo por facción o por jugadores predefinidos
-        const grupo = Object.entries(grupoReferencias).find(([grupo, lista]) =>
-          lista.some(j => p.jugadores.some(jp => jp.nombre === j))
-        )?.[0];
-
-        if (grupo && !ganadoresPorGrupo[grupo]) {
-          ganadoresPorGrupo[grupo] = p.ganador;
-        }
-      });
-
-      return ganadoresPorGrupo;
-    }
-
-    // Referencia cruzada: quién pertenece a qué grupo
-    const grupoReferencias = {
-      grupoA: ['Jugador1', 'Jugador2', 'Jugador3', 'Jugador4'],
-      grupoB: ['Jugador5', 'Jugador6', 'Jugador7', 'Jugador8'],
-      grupoC: ['Jugador9', 'Jugador10', 'Jugador11', 'Jugador12']
-    };
-
-    async function comparar() {
-      const usuarios = cargarPickems();
-      const ganadores = await cargarPartidas();
-
-      usuarios.forEach(user => {
-        let aciertos = 0;
-        let fallos = 0;
-
-        for (const [grupo, pick] of Object.entries(user.picks)) {
-          if (ganadores[grupo]) {
-            if (pick === ganadores[grupo]) {
-              aciertos++;
-            } else {
-              fallos++;
-            }
-          }
-        }
-
-        const fila = document.createElement("tr");
-        fila.innerHTML = `
-          <td>${user.usuario}</td>
-          <td class="acierto">${aciertos}</td>
-          <td class="fallo">${fallos}</td>
-          <td>${aciertos + fallos}</td>
-        `;
-        tabla.appendChild(fila);
-      });
-
-      // Ordenar por aciertos
-      [...tabla.rows]
-        .sort((a, b) => b.cells[1].textContent - a.cells[1].textContent)
-        .forEach(row => tabla.appendChild(row));
-    }
-
-    comparar();
-  </script>
+  <script type="module" src="js/resultados_json.js"></script>
 </body>
 </html>
