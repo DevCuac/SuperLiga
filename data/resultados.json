@@ -27,8 +27,8 @@
     "grupo": "B",
     "jugadores": [
       { "nombre": "Andreslopera", "pos": 1 },
-      { "nombre": "Rafa", "pos": 3 },
-      { "nombre": "Settax", "pos": 2 },
+      { "nombre": "Rafa", "pos": 2 },
+      { "nombre": "Settax", "pos": 3 },
       { "nombre": "Izzyko", "pos": 4 }
     ]
   },
