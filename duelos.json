@@ -1,31 +1,31 @@
 [
   {
-    "fecha": "16/08/2025",
+    "fecha": "23/08/2025",
     "hora": "Apartir de las 6:00pm",
     "modo": "FFA",
     "grupo": "Grupo A",
-    "jugadores": ["McPollo", "Reserva 1", "T4v0", "Elbeta"]
+    "jugadores": ["Elbeta", "Alanrogamer", "McPollo", "Kisestyle"]
     
   },
   {
-    "fecha": "16/08/2025",
-    "hora": "Apartir de las 6:00pm",
-    "modo": "FFA",
-    "grupo": "Grupo A",
-    "jugadores": ["Alanrogamer", "Fallen", "Kisestyle", "Corlione"]
-    
-  },
-  {
-    "fecha": "16/08/2025",
-    "hora": "Apartir de las 6:00pm",
+    "fecha": "23/08/2025",
+    "hora": "Apartir de las 7:00pm",
     "modo": "FFA",
     "grupo": "Grupo B",
-    "jugadores": ["Reserva 2", "LoaLegitimo", "Settax", "Izzyko"]
+    "jugadores": ["Settax", "Chiclezito", "Yzziko", "Reserva 1"]
     
   },
   {
-    "fecha": "16/08/2025",
-    "hora": "Apartir de las 6:00pm",
+    "fecha": "23/08/2025",
+    "hora": "Apartir de las 8:00pm",
+    "modo": "FFA",
+    "grupo": "Grupo A",
+    "jugadores": ["T4v0", "Fallen", "Corlione", "Reserva 2"]
+    
+  },
+  {
+    "fecha": "23/08/2025",
+    "hora": "Apartir de las 9:00pm",
     "modo": "FFA",
     "grupo": "Grupo B",
     "jugadores": ["Perro", "Chiclezito", "Andreslopera", "Rafa"]
@@ -33,7 +33,7 @@
   },
 
   {
-    "fecha": "17/08/2025",
+    "fecha": "24/08/2025",
     "hora": "Apartir de las 6:00pm",
     "modo": "FFA",
     "grupo": "Grupo C",
@@ -41,27 +41,19 @@
     
   },
   {
-    "fecha": "17/08/2025",
+    "fecha": "24/08/2025",
+    "hora": "Apartir de las 6:00pm",
+    "modo": "FFA",
+    "grupo": "Grupo D",
+    "jugadores": ["CloudNine", "Sora", "Ufgark", "Reserva 4"]
+    
+  },
+  { 
+    "fecha": "24/08/2025",
     "hora": "Apartir de las 6:00pm",
     "modo": "FFA",
     "grupo": "Grupo C",
-    "jugadores": ["Diegoyz", "Nickillou", "Arleking", "Bliztec"]
-    
-  },
-  { 
-    "fecha": "17/08/2025",
-    "hora": "Apartir de las 6:00pm",
-    "modo": "FFA",
-    "grupo": "Grupo D",
-    "jugadores": ["AESM", "Sora", "Ufgark", "Reserva 4"]
-    
-  },
-  { 
-    "fecha": "17/08/2025",
-    "hora": "Apartir de las 6:00pm",
-    "modo": "FFA",
-    "grupo": "Grupo D",
-    "jugadores": ["Hengore", "JohanEspitia", "CloudNine", "Nachobbi"]
+    "jugadores": ["Hengore", "JohanEspitia", "Nachobbi", "AESM"]
     
   }
 ]
