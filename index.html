@@ -1,28 +1,109 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Latin Chaos - Grupos</title>
-  <link rel="stylesheet" href="estilos/styles.css">
+  <meta charset="UTF-8" />
+  <title>Latin Chaos - Inicio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="icon" type="image/png" href="favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook&display=swap" rel="stylesheet">
+  <!-- Estilos globales -->
+  <link rel="stylesheet" href="estilos/styles.css">
 </head>
+  <script type="module" src="js/firebaseClient.js"></script>
+  <script src="js/nav-auth.js" defer></script>
+  <script type="module" src="js/auth-ui.js"></script>
 <body>
-  <header class="navbar">
-    <img src="img/logo.png" class="logo" alt="Latin Chaos">
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="grupos.html">Grupos</a></li>
-        <li><a href="calendario.html">Calendario</a></li>
-        <li><a href="resultados.html">Resultados</a></li>
-      </ul>
-    </nav>
+  <!-- NAVBAR -->
+  <header class="lc-navbar">
+    <div class="lc-nav-inner">
+      <div class="lc-brand">
+        <img src="img/logo.png" alt="Latin Chaos">
+        <span>Latin Chaos</span>
+      </div>
+      <nav class="lc-menu">
+        <a class="active" href="index.html">Inicio</a>
+        <a href="grupos.html">Grupos</a>
+        <a href="calendario.html">Calendario</a>
+        <a href="resultados.html">Resultados</a>
+        <a href="pickem.html">Pick’em</a>
+        <a href="tops.html">Tops</a>
+        <a href="apuestas.html">Apuestas</a>
+      </nav>
+
+      <!-- Autenticación -->
+      <div class="lc-auth">
+        <a id="nav-login" class="btn" href="auth.html">Iniciar sesión</a>
+        <a id="nav-panel" class="btn" href="panel.html" style="display:none">Panel</a>
+      </div>
+    </div>
   </header>
-  <main>
-    <section class="hero">
-      <h1>Bienvenido al Torneo de Survival Chaos</h1>
-      <p>Compite, predice y asciende en el mundo de Latin Chaos.</p>
+  
+  <!-- CONTENIDO -->
+  <main class="main-wrap home-grid">
+    <!-- ===== Resumen ===== -->
+    <section class="card summary-card" data-section="resumen">
+      <h2 class="section-title">📜 Resumen del Torneo</h2>
+      <div class="summary-grid">
+        <ul class="summary-list">
+          <li><span>Mapa</span><strong>Survival Chaos</strong></li>
+          <li><span>Formato</span><strong>FFA (4 jugadores)</strong></li>
+          <li><span>Fechas</span><strong>09/08 – 24/08</strong></li>
+        </ul>
+        <ul class="summary-list">
+          <li><span>Puntuación</span><strong>1º: 3 · 2º: 2 · 3º: 1 · 4º: −1</strong></li>
+          <li><span>Prohibiciones</span><strong>Solo T3 Gyrocopters (Dwarfs)</strong></li>
+          <li><span>Fecha 2</span><strong>Bonus: +1 si ganas / −1 si pierdes</strong></li>
+        </ul>
+        <div class="summary-actions">
+          <a class="btn" href="calendario.html">📅 Ver calendario</a>
+          <a class="btn" href="resultados.html">🏆 Ver resultados</a>
+          <a class="btn" href="grupos.html">📊 Tabla por grupos</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Próximos Duelos ===== -->
+    <section class="card" data-section="duelos">
+      <div class="card-head">
+        <h2 class="section-title">⚔️ Próximos Duelos</h2>
+        <div class="controls" style="gap:.6rem;flex-wrap:wrap">
+          <label>Grupo
+            <select id="home-grupo">
+              <option value="">Todos</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+            </select>
+          </label>
+          <label>Fecha
+            <select id="home-fecha">
+              <option value="upcoming">Próximos</option>
+              <option value="today">Hoy</option>
+              <option value="week">Esta semana</option>
+              <option value="past">Finalizados</option>
+              <option value="all">Todos</option>
+            </select>
+          </label>
+          <span id="home-status" class="muted">Mostrando 0/0</span>
+        </div>
+      </div>
+      <div id="proximos-grid" class="duelos-grid"></div>
+      <div class="card-foot right">
+        <a class="btn ghost" href="calendario.html">Ver más →</a>
+      </div>
+    </section>
+
+    <!-- ===== Tabla de Grupos Preview ===== -->
+    <section class="card" data-section="grupos">
+      <div class="card-head">
+        <h2 class="section-title">📊 Tabla de Grupos (Preview)</h2>
+        <a class="see-all" href="grupos.html">Ver tabla completa →</a>
+      </div>
+      <div id="preview-grupos" class="group-grid"></div>
+      <div class="card-foot right">
+        <a class="btn ghost" href="grupos.html">Ver más →</a>
+      </div>
     </section>
   </main>
+
+  <!-- JS de la portada -->
+  <script src="js/home.js" defer></script>
 </body>
 </html>

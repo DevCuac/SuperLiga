@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Iniciar sesión — Latin Chaos</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="estilos/styles.css">
+
+  <!-- Estilo neutro / formal para el auth -->
+  <style>
+    :root{
+      --bg:#0e0f12;
+      --panel:#121419;
+      --panel-2:#151821;
+      --border:#2a2d35;
+      --muted:#aeb3bd;
+      --txt:#e9edf2;
+      --accent:#e6e6e6;
+      --glow: 0 12px 28px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.04);
+      --ring: 0 0 0 2px rgba(255,255,255,.06), 0 10px 26px rgba(0,0,0,.55);
+    }
+    body{ background: var(--bg); color: var(--txt); }
+    .auth-wrap{
+      min-height: 100vh;
+      display: grid; place-items: center;
+      padding: 32px 16px;
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(255,255,255,.04), transparent),
+        radial-gradient(800px 500px at 90% 110%, rgba(255,255,255,.03), transparent);
+    }
+    .auth-card{
+      width: 100%; max-width: 560px;
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--glow);
+      padding: 20px 20px 18px;
+      animation: cardIn .25s ease-out;
+    }
+    @keyframes cardIn{ from{ transform: translateY(6px); opacity: .0 } to{ transform: translateY(0); opacity: 1 } }
+    .auth-card h1{
+      margin: 6px 6px 14px; font-size: 28px; letter-spacing:.2px; font-weight: 800;
+    }
+    .auth-row{ display:grid; gap: 10px; margin: 14px 6px; }
+    .btn-auth{
+      width: 100%;
+      background: #1b1f27;
+      border: 1px solid var(--border);
+      color: var(--txt);
+      border-radius: 12px;
+      height: 46px;
+      display:flex; align-items:center; justify-content:center;
+      gap:10px; font-weight: 700;
+      box-shadow: var(--ring);
+      transition: transform .08s ease, border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn-auth:hover{ transform: translateY(-1px); border-color:#3a3f49; background:#1f242e; }
+    .btn-auth:active{ transform: translateY(0); }
+    .btn-auth[disabled]{ opacity:.45; cursor:not-allowed; transform:none; }
+    .split{ height:1px; background: linear-gradient(90deg, transparent, #2b2f38, transparent); margin: 16px 8px; }
+    .field{ display:grid; gap:8px; margin: 10px 6px; }
+    .field input{
+      width:100%; height: 44px; border-radius: 12px;
+      background:#0f1217; border:1px solid var(--border); color:var(--txt);
+      padding: 10px 12px; font-size: 15px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .field input:focus{ outline:none; border-color:#3b414d; box-shadow: 0 0 0 3px rgba(255,255,255,.06); }
+    .actions{ display:flex; gap:8px; flex-wrap: wrap; margin: 6px 6px 2px; }
+    .btn{
+      height: 42px; padding: 0 14px;
+      border-radius: 10px; border: 1px solid var(--border);
+      background:#1a1e25; color:var(--txt); font-weight:700;
+      box-shadow: var(--ring);
+    }
+    .btn-primary{ background:#e8e8e8; color:#0f1116; border-color:#dcdcdc; }
+    .btn-outline{ background: transparent; }
+    .btn:disabled{ opacity:.45; cursor:not-allowed; }
+    .msg{ min-height: 20px; margin: 8px 6px 0; color: var(--muted); font-size: 14px; }
+    .msg.error{ color:#ffb3b3; }
+    .msg.ok{ color:#c7f2b0; }
+    .small{ color:var(--muted); font-size:13px; margin: 0 6px; }
+  </style>
+
+  <!-- Firebase SDK + helpers -->
+  <script type="module" src="js/firebaseClient.js"></script>
+</head>
+<body>
+  <div class="auth-wrap">
+    <section class="auth-card">
+      <h1>Iniciar sesión</h1>
+
+      <!-- Proveedores -->
+      <div class="auth-row" id="providers">
+        <button id="btn-google"   class="btn-auth">Continuar con Google</button>
+        <!-- Si no usarás estos dos aún, se ocultan vía flags en el script -->
+        <button id="btn-facebook" class="btn-auth" style="display:none">Continuar con Facebook</button>
+        <button id="btn-ms"       class="btn-auth" style="display:none">Continuar con Microsoft</button>
+      </div>
+
+      <div class="split"></div>
+
+      <h3 class="small" style="margin-top:4px;">Con correo y contraseña</h3>
+      <div class="field">
+        <input id="auth-email" type="email" autocomplete="username" placeholder="Email">
+        <input id="auth-pass"  type="password" autocomplete="current-password" placeholder="Contraseña">
+      </div>
+      <div class="actions">
+        <button id="btn-email-login"    class="btn btn-primary">Entrar</button>
+        <button id="btn-email-register" class="btn">Crear cuenta</button>
+        <button id="btn-email-reset"    class="btn btn-outline">Olvidé mi contraseña</button>
+      </div>
+
+      <p id="auth-msg" class="msg"></p>
+      <p class="small">Al continuar aceptas nuestras normas de la comunidad.</p>
+    </section>
+  </div>
+
+  <script>
+    // ====== FLAGS de proveedores (muestra/oculta botones) ======
+    const ENABLE_GOOGLE    = true;
+    const ENABLE_FACEBOOK  = false;  // cámbialo a true cuando lo habilites
+    const ENABLE_MICROSOFT = false;  // cámbialo a true cuando lo habilites
+
+    // ====== Helpers UI ======
+    const $  = (s)=>document.querySelector(s);
+    const msg = (t,cls='')=>{
+      const el = $('#auth-msg');
+      if (el){ el.textContent = t||''; el.className = 'msg ' + (cls||''); }
+    };
+    const busy = (on)=>{
+      ['#btn-google','#btn-facebook','#btn-ms','#btn-email-login','#btn-email-register','#btn-email-reset']
+      .forEach(id => { const b=$(id); if(b) b.disabled = !!on; });
+    };
+    const redirectTo = new URLSearchParams(location.search).get('returnTo') || 'index.html';
+
+    // ====== Mostrar/ocultar proveedores según flags ======
+    (function showProviders(){
+      $('#btn-google')  .style.display = ENABLE_GOOGLE   ? '' : 'none';
+      $('#btn-facebook').style.display = ENABLE_FACEBOOK ? '' : 'none';
+      $('#btn-ms')      .style.display = ENABLE_MICROSOFT? '' : 'none';
+    })();
+
+    // ====== Mapear códigos de error a mensajes claros ======
+    function humanError(code){
+      const m = {
+        'auth/popup-closed-by-user': 'Ventana cerrada antes de completar.',
+        'auth/cancelled-popup-request': 'Se canceló el inicio anterior.',
+        'auth/popup-blocked': 'El navegador bloqueó la ventana. Permite pop-ups.',
+        'auth/operation-not-allowed': 'Proveedor no habilitado en Firebase.',
+        'auth/account-exists-with-different-credential': 'Ya existe una cuenta con ese email.',
+        'auth/invalid-credential': 'Credencial inválida.',
+        'auth/invalid-email': 'Email inválido.',
+        'auth/user-disabled': 'Usuario deshabilitado.',
+        'auth/user-not-found': 'Usuario no encontrado.',
+        'auth/wrong-password': 'Contraseña incorrecta.',
+        'auth/weak-password': 'Contraseña muy débil (mínimo 6).'
+      };
+      return m[code] || 'No se pudo iniciar sesión';
+    }
+
+    // ====== Acciones ======
+    document.getElementById('btn-google')?.addEventListener('click', async ()=>{
+      if (!ENABLE_GOOGLE) return;
+      try{
+        busy(true); msg('Conectando…');
+        await fb.signInGoogle();
+        msg('¡Listo! Redirigiendo…','ok');
+        location.href = redirectTo;
+      }catch(e){
+        msg(humanError(e.code),'error');
+      }finally{ busy(false); }
+    });
+
+    
+    document.getElementById('btn-facebook')?.addEventListener('click', async ()=>{
+      if (!ENABLE_FACEBOOK) return;
+      try{
+        busy(true); msg('Conectando…');
+        await fb.signInFacebook();
+        msg('¡Listo! Redirigiendo…','ok');
+        location.href = redirectTo;
+      }catch(e){ msg(humanError(e.code),'error'); }
+      finally{ busy(false); }
+    });
+
+    document.getElementById('btn-ms')?.addEventListener('click', async ()=>{
+      if (!ENABLE_MICROSOFT) return;
+      try{
+        busy(true); msg('Conectando…');
+        await fb.signInMicrosoft();
+        msg('¡Listo! Redirigiendo…','ok');
+        location.href = redirectTo;
+      }catch(e){ msg(humanError(e.code),'error'); }
+      finally{ busy(false); }
+    });
+
+    document.getElementById('btn-email-login')?.addEventListener('click', async ()=>{
+      const email = $('#auth-email').value.trim();
+      const pass  = $('#auth-pass').value;
+      if (!email || !pass){ msg('Completa email y contraseña','error'); return; }
+      try{
+        busy(true); msg('Verificando…');
+        await fb.emailLogin(email, pass);
+        msg('¡Bienvenido!','ok');
+        location.href = redirectTo;
+      }catch(e){ msg(humanError(e.code),'error'); }
+      finally{ busy(false); }
+    });
+    
+
+    document.getElementById('btn-email-register')?.addEventListener('click', async ()=>{
+      const email = $('#auth-email').value.trim();
+      const pass  = $('#auth-pass').value;
+      if (!email || !pass){ msg('Completa email y contraseña','error'); return; }
+      try{
+        busy(true); msg('Creando cuenta…');
+        const u = await fb.emailRegister(email, pass);
+        await fb.saveUserProfile(u.uid, email.split('@')[0]);
+        msg('Cuenta creada. Redirigiendo…','ok');
+        setTimeout(()=> location.href = redirectTo, 400);
+      }catch(e){ msg(humanError(e.code),'error'); }
+      finally{ busy(false); }
+    });
+
+    document.getElementById('btn-email-reset')?.addEventListener('click', async ()=>{
+      const email = $('#auth-email').value.trim();
+      if (!email){ msg('Escribe tu email para enviar el enlace','error'); return; }
+      try{
+        busy(true); msg('Enviando enlace…');
+        await fb.emailReset(email);
+        msg('Revisa tu correo para restablecer.','ok');
+      }catch(e){ msg(humanError(e.code),'error'); }
+      finally{ busy(false); }
+    });
+    window.addEventListener('load', ()=>{
+    if (!window.fb || !fb.auth) {
+        console.error('firebaseClient.js no cargó o falló la config.');
+        msg('No se cargó Firebase (revisa js/firebaseClient.js y la consola de red).', 'error');
+    }
+    });
+
+  </script>
+</body>
+</html>

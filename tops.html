@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tops — Latin Chaos</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="estilos/styles.css">
+  <style>
+    /* ======== ESTILO WARCRAFT PARA EL TOP ======== */
+    .tops-container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 1.2rem;
+      background: linear-gradient(180deg, #0f1217, #13171f);
+      border: 2px solid #d4af37;
+      border-radius: 14px;
+      box-shadow: 0 0 15px rgba(212,175,55,0.25);
+    }
+    .tops-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: .8rem;
+      border-bottom: 1px solid rgba(212,175,55,0.25);
+    }
+    .tops-header h1 {
+      margin: 0;
+      font-family: 'UnifrakturCook', serif;
+      font-size: 1.8rem;
+      color: #f6d978;
+    }
+    .tops-tools {
+      display: flex;
+      gap: .6rem;
+      align-items: center;
+    }
+    .tops-tools input, .tops-tools select {
+      background: #1c2128;
+      border: 1px solid #3c4450;
+      color: #e8eef5;
+      border-radius: 8px;
+      padding: .4rem .6rem;
+    }
+    .tops-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+    .tops-table th, .tops-table td {
+      padding: .6rem .8rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .tops-table th {
+      background: rgba(212,175,55,0.1);
+      color: #f6d978;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+    .tops-table tbody tr:nth-child(even) {
+      background: rgba(255,255,255,0.02);
+    }
+    .tops-table td {
+      color: #eaeaea;
+    }
+    .tops-table td.num {
+      text-align: center;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="lc-navbar">
+    <div class="lc-nav-inner">
+      <div class="lc-brand">
+        <img src="img/logo.png" alt="Latin Chaos">
+        <span>Latin Chaos</span>
+      </div>
+      <nav class="lc-menu">
+        <a href="index.html">Inicio</a>
+        <a href="grupos.html">Grupos</a>
+        <a href="calendario.html">Calendario</a>
+        <a href="resultados.html">Resultados</a>
+        <a href="pickem.html">Pick’em</a>
+        <a class="active" href="tops.html">Tops</a>
+        <a href="apuestas.html">Apuestas</a>
+      </nav>
+
+      <!-- Autenticación -->
+      <div class="lc-auth">
+        <a id="nav-login" class="btn" href="auth.html">Iniciar sesión</a>
+        <a id="nav-panel" class="btn" href="panel.html" style="display:none">Panel</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR -->
+  <main class="tops-container">
+    <div class="tops-header">
+      <h1>🏆 Ranking Pick’em</h1>
+      <div class="tops-tools">
+        <input id="tops-search" type="text" placeholder="Buscar usuario...">
+        <select id="tops-sort">
+          <option value="best" selected>Orden: Aciertos ↓</option>
+          <option value="eff">Orden: Efectividad ↓</option>
+          <option value="name">Orden: Usuario A–Z</option>
+        </select>
+        <button id="tops-refresh" class="btn">Actualizar</button>
+      </div>
+    </div>
+
+    <div id="tops-meta" class="muted" style="margin:.6rem 0;"></div>
+
+    <div class="table-scroll">
+      <table class="tops-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th class="num">Aciertos</th>
+            <th class="num">Total</th>
+            <th class="num">Efectividad</th>
+          </tr>
+        </thead>
+        <tbody id="tops-tbody">
+          <tr><td colspan="5" class="muted">Cargando…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script type="module" src="js/firebaseClient.js"></script>
+  <script src="js/nav-auth.js" defer></script>
+  <script src="js/tops.js" defer></script>
+</body>
+</html>

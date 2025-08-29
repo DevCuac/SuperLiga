@@ -1,0 +1,229 @@
+/* =========================================================
+   CALENDARIO — Skin específico (compatible con styles.css)
+   ========================================================= */
+
+/* Grid general: card calendario + aside */
+.cal-panel{
+  display:grid;
+  grid-template-columns: 1fr 360px;
+  gap: 24px;
+  align-items:start;
+}
+@media (max-width: 1100px){
+  .cal-panel{ grid-template-columns: 1fr; }
+}
+
+/* ---------- Card principal ---------- */
+.cal-card{
+  background: linear-gradient(180deg, rgba(18,24,31,.84), rgba(14,19,24,.72));
+  border: 1.5px solid rgba(246,217,120,.28);
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.05);
+  overflow:hidden;
+  min-height: 68vh;
+}
+
+/* Header sticky (título + filtros) */
+.cal-head{
+  position: sticky;
+  top: 74px; /* ajusta si tu navbar cambia de alto */
+  z-index: 5;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid rgba(246,217,120,.18);
+  background: linear-gradient(180deg, rgba(22,28,35,.90), rgba(22,28,35,.70));
+  backdrop-filter: blur(6px) saturate(140%);
+}
+.cal-title{
+  margin: 4px 0 10px;
+  font-weight: 800;
+  letter-spacing: .3px;
+  filter: drop-shadow(0 0 10px rgba(246,217,120,.12));
+}
+
+/* Filtros */
+.cal-toolbar{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+}
+.cal-toolbar label{ color: var(--muted); font-weight:700; }
+.cal-toolbar input, .cal-toolbar select{
+  height: 36px; border-radius: 10px;
+  background:#1c2128; border:1px solid #3c4450; color:#e8eef5;
+  padding: 0 .65rem; min-width: 170px;
+}
+.cal-toolbar input[type="date"]{ min-width: 160px; }
+.cal-toolbar .btn{ height:36px; padding:0 14px }
+
+/* Cuerpo con scroll (lista) */
+.cal-body{
+  padding: 12px;
+  max-height: calc(100vh - 220px); /* filtros siempre visibles */
+  overflow: auto;
+}
+
+/* Scrollbar sutil */
+.cal-body::-webkit-scrollbar{ width:10px }
+.cal-body::-webkit-scrollbar-thumb{
+  background: rgba(246,217,120,.25); border-radius: 8px;
+  border: 2px solid rgba(0,0,0,.25);
+}
+.cal-body::-webkit-scrollbar-track{ background: rgba(255,255,255,.03); border-radius: 8px }
+
+/* Contenedor vidrio para la lista */
+.calendar-list-wrapper{
+  background: linear-gradient(180deg, rgba(18,24,31,.55), rgba(18,24,31,.45));
+  border-radius: 16px;
+  border: 1px solid rgba(246,217,120,.18);
+  padding: 10px;
+}
+
+/* Lista e ítems (acepta divs o li) */
+.calendario-lista, .calendar-list, .cal-list, #cal-list{
+  display:grid; gap: 14px;
+}
+.calendario-lista > *{
+  background: rgba(15,20,26,.62);
+  border: 1px solid rgba(246,217,120,.30);
+  border-radius: 16px;
+  padding: 12px;
+  transition: transform .12s ease, box-shadow .12s ease, background .2s ease;
+}
+.calendario-lista > *:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.35);
+  background: rgba(15,20,26,.70);
+}
+
+/* Cabecera de cada duelo */
+.cal-row, .duelo-row, .match-row, .calendar-item, .cal-item{
+  display:flex; flex-direction:column; gap:8px;
+}
+.cal-row .row-top, .duelo-row .row-top, .match-row .row-top, .calendar-item .row-top{
+  display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+}
+.cal-row .row-tags, .duelo-row .row-tags, .match-row .row-tags, .calendar-item .row-tags{
+  display:flex; flex-wrap:wrap; gap:6px;
+}
+.cal-row .time, .duelo-row .time, .match-row .time, .calendar-item .time{
+  color: var(--muted); font-weight:700; white-space:nowrap;
+}
+
+/* Jugadores en línea separada */
+.cal-row .players, .duelo-row .players, .match-row .players, .calendar-item .players{
+  display:flex; flex-wrap:wrap; gap:8px;
+}
+
+/* Pills afinadas (usa las globales de styles.css) */
+.calendario-lista .pill{ font-size:.86rem; padding:6px 10px }
+.calendario-lista .pill-gold{ color: var(--gold) }
+
+/* ---------- Aside (indicaciones) ---------- */
+.calendar-aside{
+  position: sticky; top: 88px;
+  background: linear-gradient(180deg, rgba(18,24,31,.84), rgba(14,19,24,.72));
+  border: 1.5px solid rgba(246,217,120,.28);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.calendar-aside h3{
+  margin: 2px 0 12px; color: var(--gold); font-weight:800; letter-spacing:.2px
+}
+.calendar-aside .section + .section{ margin-top: 10px }
+.calendar-aside strong{ color: #fffadc }
+
+/* ---------- Ajustes responsivos ---------- */
+@media (max-width: 640px){
+  .cal-toolbar input, .cal-toolbar select{ min-width: 135px }
+}
+
+/* ==== FIX: header sticky no tape el primer ítem ==== */
+:root{
+  /* Ajusta si tu navbar mide distinto */
+  --nav-offset: 74px;      /* altura aprox del navbar */
+  --cal-head-gap: 14px;    /* espacio extra bajo el header */
+}
+
+.cal-head{
+  position: sticky;
+  top: var(--nav-offset);
+  z-index: 10;                       /* por encima de la lista */
+  margin-bottom: var(--cal-head-gap);/* deja hueco real abajo */
+  /* (opcional) sombra sutil para separar visualmente */
+  box-shadow: 0 6px 14px rgba(0,0,0,.25);
+}
+
+.cal-body{
+  /* un poco más de aire interno por seguridad */
+  padding: 16px 12px;
+}
+
+/* por si algún layout ignora el margin del header, forzamos gap extra */
+.cal-head + .cal-body .calendar-list-wrapper{ padding-top: 6px; }
+
+/* garantiza que el primer ítem nunca quede pegado al borde superior */
+.calendario-lista > *:first-child,
+.calendar-list > *:first-child,
+#cal-list > li:first-child{
+  margin-top: 6px;
+}
+
+/* ====== Layout 3 columnas ====== */
+.cal-3col{
+  display:grid;
+  grid-template-columns: 320px 1fr 360px; /* filtros | duelos | indicaciones */
+  gap: 24px;
+  align-items:start;
+}
+@media (max-width: 1200px){ .cal-3col{ grid-template-columns: 300px 1fr 320px } }
+@media (max-width: 1050px){
+  .cal-3col{ grid-template-columns: 1fr; }
+}
+
+/* ====== Caja de filtros lateral ====== */
+.filter-card{
+  position: sticky; top: 88px;
+  background: linear-gradient(180deg, rgba(18,24,31,.84), rgba(14,19,24,.72));
+  border: 1.5px solid rgba(246,217,120,.28);
+  border-radius: 18px;
+  padding: 14px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.filter-card h3{
+  margin: 2px 0 12px; color: var(--gold);
+  font-weight: 800; letter-spacing: .2px;
+}
+.f-row{ display:flex; flex-direction:column; gap:6px; margin-bottom:10px; color:var(--muted); font-weight:700 }
+.f-2col{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:12px }
+.filter-card select,
+.filter-card input{
+  height: 36px; border-radius: 10px;
+  background:#1c2128; border:1px solid #3c4450; color:#e8eef5;
+  padding: 0 .65rem; width:100%;
+}
+.w-full{ width:100% }
+.status-line{ margin-top:10px; font-size:.92rem }
+
+/* ====== Card central de lista ====== */
+.cal-list-card{
+  background: linear-gradient(180deg, rgba(18,24,31,.84), rgba(14,19,24,.72));
+  border: 1.5px solid rgba(246,217,120,.28);
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.05);
+  overflow:hidden;
+  min-height: 70vh;
+}
+.list-title{ padding: 14px 16px 10px; border-bottom: 1px solid rgba(246,217,120,.18) }
+.cal-title{ margin:0; font-weight:800; letter-spacing:.3px; filter: drop-shadow(0 0 10px rgba(246,217,120,.12)) }
+
+/* scroll del cuerpo */
+.cal-body{ padding: 14px; max-height: calc(100vh - 220px); overflow:auto }
+.cal-body::-webkit-scrollbar{ width:10px }
+.cal-body::-webkit-scrollbar-thumb{ background: rgba(246,217,120,.25); border-radius:8px; border:2px solid rgba(0,0,0,.25) }
+.cal-body::-webkit-scrollbar-track{ background: rgba(255,255,255,.03); border-radius:8px }
+
+/* lista + items (reusa estilos globales, añade aire) */
+.calendario-lista{ display:grid; gap:16px }
+.calendario-lista > *{ padding:14px }
+
+/* Indicaciones (ya existía; por claridad la mantenemos) */
+.calendar-aside{ position: sticky; top: 88px }

@@ -1,253 +1,119 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Latin Chaos - Grupos</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Latin Chaos — Grupos</title>
+  <link rel="icon" href="favicon.png">
   <link rel="stylesheet" href="estilos/styles.css">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook&display=swap" rel="stylesheet">
-  <style>
-    .group-layout {
-      display: flex;
-      padding: 2rem;
-      gap: 2rem;
-    }
-
-    .group-info {
-      width: 25%;
-      background: rgba(0, 0, 0, 0.6);
-      border: 2px solid gold;
-      border-radius: 10px;
-      padding: 1rem;
-      color: white;
-      font-family: 'Georgia', serif;
-    }
-
-    .info-box {
-      margin-bottom: 1.5rem;
-    }
-
-    .group-tables {
-      width: 75%;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .group-row-container {
-      display: flex;
-      justify-content: space-between;
-      gap: 2rem;
-    }
-
-    .scoreboard {
-      flex: 1;
-      background: rgba(0, 0, 0, 0.6);
-      border: 2px solid gold;
-      border-radius: 10px;
-      padding: 1rem;
-      color: white;
-    }
-
-    .scoreboard h3,
-    .group-header {
-      text-align: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      background-color: rgba(255, 215, 0, 0.15);
-      padding: 0.5rem;
-      border-bottom: 1px solid gold;
-    }
-
-    table.group-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-
-    table.group-table th,
-    table.group-table td {
-      border: 1px solid gold;
-      padding: 0.5rem;
-      text-align: center;
-    }
-
-    table.group-table th {
-      background-color: rgba(255, 215, 0, 0.2);
-    }
-  </style>
 </head>
+  <script type="module" src="js/firebaseClient.js"></script>
+  <script src="js/nav-auth.js" defer></script>
+  <script type="module" src="js/auth-ui.js"></script>
 <body>
-  <header class="navbar">
-    <img src="img/logo.png" class="logo" alt="Latin Chaos">
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="grupos.html">Grupos</a></li>
-        <li><a href="calendario.html">Calendario</a></li>
-        <li><a href="resultados.html">Resultados</a></li>
-      </ul>
-    </nav>
+  <!-- NAVBAR -->
+  <header class="lc-navbar">
+    <div class="lc-nav-inner">
+      <div class="lc-brand">
+        <img src="img/logo.png" alt="Latin Chaos">
+        <span>Latin Chaos</span>
+      </div>
+      <nav class="lc-menu">
+        <a href="index.html">Inicio</a>
+        <a class="active" href="grupos.html">Grupos</a>
+        <a href="calendario.html">Calendario</a>
+        <a href="resultados.html">Resultados</a>
+        <a href="pickem.html">Pick’em</a>
+        <a href="tops.html">Tops</a>
+        <a href="apuestas.html">Apuestas</a>
+      </nav>
+
+      <!-- Bloque de autenticación -->
+      <div class="lc-auth">
+        <a id="nav-login" class="btn" href="auth.html">Iniciar sesión</a>
+        <a id="nav-panel" class="btn" href="panel.html" style="display:none">Panel</a>
+      </div>
+    </div>
   </header>
 
-  <main class="group-layout">
-    <!-- Columna izquierda -->
-  <aside class="group-info">
-    <div class="info-box">
-      <h2>Torneo Latin Chaos</h2>
-      <p><strong>Mapa:</strong> Survival Chaos</p>
-      <p><strong>Formato:</strong> Single(Solitario)</p>
-      <p><strong>Duración:</strong> 09/08 - 20/08</p>
-    </div>
+  <main class="main-wrap">
+    <h1 class="groups-title">Torneo Latin Chaos</h1>
 
-    <div class="info-box">
-      <h3>Reglas</h3>
-      <ul>
-        <li>28 jugadores</li>
-        <li>4 grupos (7 jugadores cada uno)</li>
-        <li>Clasifican 2 por grupo</li>
-        <li>FFA en grupos / Bo1 en llaves</li>
-      </ul>
-    </div>
+    <section class="groups-page">
+      <!-- IZQUIERDA: Panel de información -->
+      <aside class="info-card">
+        <h3>Información General</h3>
+        <div class="info-block"><span class="label">Mapa</span><div class="value">Survival Chaos</div></div>
+        <div class="info-block"><span class="label">Formato</span><div class="value">FFA (4 jugadores)</div></div>
+        <div class="info-block"><span class="label">Duración</span><div class="value">09/08 – 20/08</div></div>
 
-    <div class="info-box">
-      <h3>Fase de Grupos</h3>
-      <ul>
-        <li>4 grupos: A, B, C y D (7 jugadores)</li>
-        <li>Partidas los fines de semana</li>
-        <li><strong>Puntaje:</strong> 1º: 3 pts / 2º: 2 pts / 3º: 1 pt / 4º: -1 pt</li>
-        <li>Clasifican 2 por grupo a semifinal</li>
-        <li>Cada clasificado gana $5 (8 premiados)</li>
-      </ul>
-    </div>
-
-    <div class="info-box">
-      <h3>Segunda Fase</h3>
-      <ul>
-        <li><strong>Semifinal en duplas:</strong> A vs C y B vs D</li>
-        <li>Duplas ganadoras ganan $10</li>
-        <li>Luego se reagrupan a modo individual en 2 nuevos grupos</li>
-        <li>Finalistas salen de cada grupo + mejor score + salvado por votación</li>
-      </ul>
-    </div>
-
-    <div class="info-box">
-      <h3>Premios Finales</h3>
-      <ul>
-        <li>1º lugar: $50</li>
-        <li>2º lugar: $10</li>
-        <li>3º lugar: $5</li>
-        <li>4º lugar: eliminado por manco 😅</li>
-      </ul>
-    </div>
-
-    <div class="info-box">
-      <h3>Clasificación</h3>
-      <p><span style="color: #ffd700;">Top 1</span> → Pasa directo a semifinal.</p>
-      <p><span style="color: #ffdd99;">Top 2 y 3</span> → A cuartos.</p>
-      <p><span style="color: #aaa;">Top 4</span> → Repechaje (bracket bajo).</p>
-    </div>
-
-    <div class="info-box">
-      <h3>Reglamento Rápido</h3>
-      <ul>
-        <li>Se permite reemplazo 1 vez (con puntaje)</li>
-        <li>15-20min de tolerancia. Luego, W.O.</li>
-        <li>Chat libre solo si todos están de acuerdo</li>
-        <li>Faltas graves: expulsión directa</li>
-        <li>RMK solo si cae antes del min 10</li>
-      </ul>
-      <p><em>* Las reglas pueden ajustarse según necesidad junto al "council".</em></p>
-    </div>
-  </aside>
-
-    <!-- Columna derecha con 4 grupos (2x2) -->
-    <section class="group-tables">
-      <div class="group-grid">
-        <!-- Grupo A -->
-        <div class="scoreboard">
-          <div class="group-header">Grupo A</div>
-          <div class="group-table-alt">
-            <div class="group-row-alt group-row-header">
-              <div>Jugador</div>
-              <div>Victorias</div>
-              <div>Derrotas</div>
-              <div>Puntos</div>
-            </div>
-            <div class="group-row-alt"><div>Kisestyle</div><div>0</div><div>1</div><div>2</div></div>
-            <div class="group-row-alt"><div>Corlione</div><div>0</div><div>1</div><div>1</div></div>
-            <div class="group-row-alt"><div>Fallen</div><div>0</div><div>1</div><div>2</div></div>
-            <div class="group-row-alt"><div>Alanrogamer</div><div>1</div><div>0</div><div>3</div></div>
-            <div class="group-row-alt"><div>McPollo</div><div>0</div><div>1</div><div>1</div></div>
-            <div class="group-row-alt"><div>Elbeta</div><div>1</div><div>0</div><div>3</div></div>
-            <div class="group-row-alt"><div>T4v0</div><div>0</div><div>1</div><div>2</div></div>
-            <div class="group-row-alt"><div>Reserva 1</div><div>0</div><div>1</div><div>2</div></div>
-          </div>
+        <div class="info-block">
+          <span class="label">Reglas</span>
+          <ul style="margin:.2rem 0 .2rem 1.1rem">
+            <li>28 Jugadores</li>
+            <li>4 grupos (7 Jugadores cada uno)</li>
+            <li>Clasifican 2 por grupo</li>
+            <li>FFA en grupos / Bo1 en llaves</li>
+          </ul>
         </div>
 
-        <!-- Grupo B -->
-        <div class="scoreboard">
-          <div class="group-header">Grupo B</div>
-          <div class="group-table-alt">
-            <div class="group-row-alt group-row-header">
-              <div>Jugador</div>
-              <div>Victorias</div>
-              <div>Derrotas</div>
-              <div>Puntos</div>
-            </div>
-            <div class="group-row-alt"><div>LoaLegitimo</div><div>0</div><div>1</div><div>2</div></div>
-            <div class="group-row-alt"><div>Rafa</div><div>0</div><div>1</div><div>2</div></div>
-            <div class="group-row-alt"><div>Settax</div><div>0</div><div>1</div><div>2</div></div>
-            <div class="group-row-alt"><div>Perro</div><div>0</div><div>1</div><div>2</div></div>
-            <div class="group-row-alt"><div>Chiclezito</div><div>0</div><div>1</div><div>1</div></div>
-            <div class="group-row-alt"><div>Andreslopera</div><div>1</div><div>0</div><div>3</div></div>
-            <div class="group-row-alt"><div>Izzyko</div><div>0</div><div>1</div><div>1</div></div>
-            <div class="group-row-alt"><div>Reserva 2</div><div>1</div><div>0</div><div>3</div></div>
-          </div>
+        <div class="info-block">
+         <span class="label">Fase de Grupos</span>
+          <ul style="margin:.2rem 0 .2rem 1.1rem">
+            <li>4 grupos: A, B, C y D (7 jugadores)</li>
+            <li>Partidas los Fines de Semana</li>
+            <li>Clasifican 2 por grupo a semifinal</li>
+            <li>Cada clasificado gana $5 (8 premiados)</li>
+          </ul>
         </div>
 
-        <!-- Grupo C -->
-        <div class="scoreboard">
-          <div class="group-header">Grupo C</div>
-          <div class="group-table-alt">
-            <div class="group-row-alt group-row-header">
-              <div>Jugador</div>
-              <div>Victorias</div>
-              <div>Derrotas</div>
-              <div>Puntos</div>
-            </div>
-            <div class="group-row-alt"><div>Arleking</div><div>0</div><div>1</div><div>2</div></div>
-            <div class="group-row-alt"><div>Bliztec</div><div>0</div><div>1</div><div>1</div></div>
-            <div class="group-row-alt"><div>Fenix</div><div>1</div><div>0</div><div>3</div></div>
-            <div class="group-row-alt"><div>Chandon</div><div>0</div><div>1</div><div>0</div></div>
-            <div class="group-row-alt"><div>Nikillou</div><div>0</div><div>1</div><div>0</div></div>
-            <div class="group-row-alt"><div>Moonglide</div><div>0</div><div>1</div><div>2</div></div>
-            <div class="group-row-alt"><div>Diegoyz</div><div>1</div><div>0</div><div>3</div></div>
-            <div class="group-row-alt"><div>Reserva 3</div><div>0</div><div>1</div><div>0</div></div>
-          </div>
+        <div class="info-block"><span class="label">Puntuación</span><div class="value">1º: 3 · 2º: 2 · 3º: 1 · 4º: −1</div></div>
+
+        <div class="info-block">
+         <span class="label">Segunda Fase</span>
+          <ul style="margin:.2rem 0 .2rem 1.1rem">
+            <li>Semifinal en duplas: A vs C y B vs D</li>
+            <li>Duplas ganadoras ganan $10</li>
+            <li>Luego se reagrupan a modo individual en 2 nuevos grupos</li>
+            <li>Finalistas salen de cada grupo + mejor score + salvado por votación</li>
+          </ul>
         </div>
 
-        <!-- Grupo D -->
-        <div class="scoreboard">
-          <div class="group-header">Grupo D</div>
-          <div class="group-table-alt">
-            <div class="group-row-alt group-row-header">
-              <div>Jugador</div>
-              <div>Victorias</div>
-              <div>Derrotas</div>
-              <div>Puntos</div>
-            </div>
-            <div class="group-row-alt"><div>Ufgark</div><div>0</div><div>1</div><div>0</div></div>
-            <div class="group-row-alt"><div>AESM</div><div>0</div><div>1</div><div>2</div></div>
-            <div class="group-row-alt"><div>JohanEspitia</div><div>0</div><div>1</div><div>1</div></div>
-            <div class="group-row-alt"><div>Hengore</div><div>1</div><div>0</div><div>3</div></div>
-            <div class="group-row-alt"><div>CloudNine</div><div>0</div><div>1</div><div>0</div></div>
-            <div class="group-row-alt"><div>ZergAmable</div><div>1</div><div>0</div><div>3</div></div>
-            <div class="group-row-alt"><div>Nachobbi</div><div>0</div><div>1</div><div>2</div></div>
-            <div class="group-row-alt"><div>Reserva 4</div><div>0</div><div>1</div><div>0</div></div>
-          </div>
+        <div class="info-block">
+         <span class="label">Clasificación</span>
+          <ul style="margin:.2rem 0 .2rem 1.1rem">
+            <li>Top 1 → Pasa directo a semifinal.</li>
+            <li>Top 2 y 3 → A cuartos.</li>
+            <li>Top 4 → Repechaje (bracket bajo).</li>
+          </ul>
         </div>
-      </div>
+
+        <div class="info-block">
+         <span class="label">Reglamento Rápido</span>
+          <ul style="margin:.2rem 0 .2rem 1.1rem">
+            <li>Se permite reemplazo 1 vez (con puntaje)</li>
+            <li>15-20min de tolerancia. Luego, W.O.</li>
+            <li>Chat libre solo si todos están de acuerdo</li>
+            <li>Faltas graves: expulsión directa</li>
+            <li>RMK solo si cae antes del min 10</li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- DERECHA: Grupos -->
+      <section class="groups-right">
+        <div class="section-head">
+          <h2 class="section-title">Tabla por Grupos</h2>
+          <a class="btn ghost" href="calendario.html">Ver calendario →</a>
+        </div>
+
+        <!-- Aquí se cargan dinámicamente los grupos -->
+        <div id="groups-grid" class="group-grid"></div>
+      </section>
     </section>
   </main>
+
+  <!-- Script que pinta los grupos -->
+  <script src="js/grupos.js" defer></script>
 </body>
 </html>

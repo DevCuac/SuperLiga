@@ -6,71 +6,99 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <title>Calendario de Duelos - Latin Chaos</title>
   <link rel="stylesheet" href="estilos/styles.css">
+  <link rel="stylesheet" href="estilos/calendario.css"><!-- CSS específico -->
 </head>
-<body class="calendario-body">
-  <header class="navbar">
-    <img src="img/logo.png" class="logo" alt="Latin Chaos">
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="grupos.html">Grupos</a></li>
-        <li><a href="calendario.html">Calendario</a></li>
-        <li><a href="resultados.html">Resultados</a></li>
-      </ul>
-    </nav>
+  <script type="module" src="js/firebaseClient.js"></script>
+  <script src="js/nav-auth.js" defer></script>
+  <script type="module" src="js/auth-ui.js"></script>
+<body>
+  <!-- NAVBAR -->
+  <header class="lc-navbar">
+    <div class="lc-nav-inner">
+      <div class="lc-brand">
+        <img src="img/logo.png" alt="Latin Chaos">
+        <span>Latin Chaos</span>
+      </div>
+      <nav class="lc-menu">
+        <a href="index.html">Inicio</a>
+        <a href="grupos.html">Grupos</a>
+        <a class="active" href="calendario.html">Calendario</a>
+        <a href="resultados.html">Resultados</a>
+        <a href="pickem.html">Pick’em</a>
+        <a href="tops.html">Tops</a>
+        <a href="apuestas.html">Apuestas</a>
+      </nav>
+
+      <!-- Bloque de autenticación -->
+      <div class="lc-auth">
+        <a id="nav-login" class="btn" href="auth.html">Iniciar sesión</a>
+        <a id="nav-panel" class="btn" href="panel.html" style="display:none">Panel</a>
+      </div>
+    </div>
   </header>
 
-  <main class="calendario-container">
-    <h1 class="titulo-calendario">📅 Calendario de Duelos</h1>
-    <div id="calendario-lista" class="calendario-lista"></div>
+  <!-- 3 columnas: filtros (izq) | duelos (centro) | indicaciones (der) -->
+  <main class="main-wrap cal-3col">
+    <!-- Filtros (caja lateral) -->
+    <aside class="filter-card">
+      <h3>Filtros</h3>
+
+      <label class="f-row">Grupo
+        <select id="filtro-grupo">
+          <option value="">Todos</option>
+          <option>A</option><option>B</option><option>C</option><option>D</option>
+        </select>
+      </label>
+
+      <label class="f-row">Buscar
+        <input id="buscar" placeholder="Jugador..." />
+      </label>
+
+      <label class="f-row">Fecha
+        <select id="preset-fecha" title="Rango rápido">
+          <option value="all">Todos</option>
+          <option value="upcoming">Próximos</option>
+          <option value="past">Pasados</option>
+          <option value="today">Hoy</option>
+          <option value="week">Esta semana</option>
+        </select>
+      </label>
+
+      <div class="f-2col">
+        <label>Desde
+          <input type="date" id="desde" />
+        </label>
+        <label>Hasta
+          <input type="date" id="hasta" />
+        </label>
+      </div>
+
+      <button id="btn-limpiar" class="btn w-full">Limpiar</button>
+      <div id="cal-status" class="muted status-line"></div>
+    </aside>
+
+    <!-- Duelos (centro) -->
+    <section class="cal-list-card">
+      <div class="list-title">
+        <h1 class="cal-title">📅 Calendario de Duelos</h1>
+      </div>
+      <div class="cal-body">
+        <div class="calendar-list-wrapper">
+          <div id="calendario-lista" class="calendario-lista"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Indicaciones (derecha) -->
+    <aside class="calendar-aside indicaciones-box">
+      <h3>Indicaciones Generales</h3>
+      <div class="section"><strong>Puntajes</strong><p>3 - 2 - 2 - 1</p></div>
+      <div class="section"><strong>Modalidad</strong><p>Raza random, Bonus free</p></div>
+      <div class="section"><strong>Prohibiciones</strong><p>Solo T3 Gyrocopters (Dwarfs)</p></div>
+      <div class="section"><strong>Fecha 2</strong><p>Bonus items: +1 si ganas / -1 si pierdes</p></div>
+    </aside>
   </main>
 
-<aside class="indicaciones-box">
-  <h3>Indicaciones Generales</h3>
-  <div>
-    <strong>Puntajes:</strong>
-    <p>3 - 2 - 2 - 1</p>
-  </div>
-  <div>
-    <strong>Modalidad:</strong>
-    <p>Raza random, Bonus free</p>
-  </div>
-  <div>
-    <strong>Prohibiciones:</strong>
-    <p>Únicamente el T3 Gyrocopters de los Dwarfs.</p>
-  </div>
-  <div>
-    <strong>Mecanica Fecha 2: (OPCIONAL)</strong>
-    <p>El bonus items tendrá un valor agregado de 1 pto si ganas y si pierdes -1 pto.
- El comando -random en bonus tendrá un valor agregado de 1 pto si ganas y 0 ptos si pierdes (que no se te quitara puntos por fallar el desafío, más seguirás ganando tus puntos habituales por posición).</p>
-  </div>
-</aside>
-
-  <script>
-    async function cargarCalendario() {
-      const response = await fetch('duelos.json');
-      const duelos = await response.json();
-      const container = document.getElementById("calendario-lista");
-
-      duelos.forEach(duelo => {
-        const card = document.createElement("div");
-        card.className = "duelo-card";
-        card.innerHTML = `
-        <div class="duelo-fecha">${duelo.fecha} - ${duelo.hora}</div>
-        <div class="duelo-jugadores">
-            ${duelo.jugadores.map(j => `<span class="jugador">${j}</span>`).join('')}
-        </div>
-        <div class="duelo-detalles">
-            <span class="modo">🗡️ ${duelo.modo}</span>
-            <span class="grupo">📍 ${duelo.grupo}</span>
-        </div>
-        ${duelo.detalle ? `<div class="duelo-extra">${duelo.detalle}</div>` : ''}
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    cargarCalendario();
-  </script>
+  <script src="js/calendario.js" defer></script>
 </body>
 </html>

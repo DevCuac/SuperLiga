@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apuestas - Latin Chaos</title>
+  <link rel="stylesheet" href="estilos/styles.css">
+  <style>
+    /* Estilo especial para la tarjeta "En desarrollo" */
+    .coming-soon-card {
+      max-width: 600px;
+      margin: 80px auto;
+      padding: 40px;
+      text-align: center;
+      background: rgba(20, 20, 20, 0.9);
+      border: 2px solid #ffd700;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    .coming-soon-card h1 {
+      font-size: 2.2rem;
+      color: #ffd700;
+      margin-bottom: 20px;
+    }
+    .coming-soon-card p {
+      font-size: 1.1rem;
+      color: #ccc;
+      margin: 10px 0;
+    }
+    .coming-soon-card .dev-note {
+      font-style: italic;
+      color: #999;
+      margin-top: 15px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="lc-navbar">
+    <div class="lc-nav-inner">
+      <div class="lc-brand">
+        <img src="img/logo.png" alt="Latin Chaos">
+        <span>Latin Chaos</span>
+      </div>
+      <nav class="lc-menu">
+        <a href="index.html">Inicio</a>
+        <a href="grupos.html">Grupos</a>
+        <a href="calendario.html">Calendario</a>
+        <a href="resultados.html">Resultados</a>
+        <a href="pickem.html">Pick’em</a>
+        <a href="tops.html">Tops</a>
+        <a class="active" href="apuestas.html">Apuestas</a>
+      </nav>
+
+      <!-- Autenticación -->
+      <div class="lc-auth">
+        <a id="nav-login" class="btn" href="auth.html">Iniciar sesión</a>
+        <a id="nav-panel" class="btn" href="panel.html" style="display:none">Panel</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <main class="container">
+    <div class="coming-soon-card">
+      <h1>⚒️ Apuestas</h1>
+      <p>Esta sección estará disponible próximamente.</p>
+      <p>¡Muy pronto podrás realizar tus apuestas dentro del torneo!</p>
+      <p class="dev-note">(En desarrollo...)</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Latin Chaos. Todos los derechos reservados.</p>
+  </footer>
+
+  <script type="module" src="js/firebaseClient.js"></script>
+  <script src="js/nav-auth.js" defer></script>
+  <script type="module" src="js/auth-ui.js"></script>
+</body>
+</html>

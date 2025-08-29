@@ -1,0 +1,93 @@
+[
+  { "start":"2025-08-09T18:00:00-05:00","fecha":"2025-08-09","hora":"18:00","tz":"-05:00",
+    "group":"A","grupo":"A","mode":"Bo1","modo":"Bo1",
+    "teams":["Corlione","Kisestyle","T4v0","Elbeta"], "jugadores":["Corlione","Kisestyle","T4v0","Elbeta"], "winner":"" },
+
+  { "start":"2025-08-09T19:00:00-05:00","fecha":"2025-08-09","hora":"19:00","tz":"-05:00",
+    "group":"A","grupo":"A","mode":"Bo1","modo":"Bo1",
+    "teams":["Alanrogamer","Fallen","McPollo","Reserva1"], "jugadores":["Alanrogamer","Fallen","McPollo","Reserva1"], "winner":"" },
+
+  { "start":"2025-08-09T20:00:00-05:00","fecha":"2025-08-09","hora":"20:00","tz":"-05:00",
+    "group":"B","grupo":"B","mode":"Bo1","modo":"Bo1",
+    "teams":["Rafa","Izzyko","Andreslopera","Settax"], "jugadores":["Rafa","Izzyko","Andreslopera","Settax"], "winner":"" },
+
+  { "start":"2025-08-09T21:00:00-05:00","fecha":"2025-08-09","hora":"21:00","tz":"-05:00",
+    "group":"B","grupo":"B","mode":"Bo1","modo":"Bo1",
+    "teams":["Perro","Chiclezito","LoaLegitimo","Reserva2"], "jugadores":["Perro","Chiclezito","LoaLegitimo","Reserva2"], "winner":"" },
+
+  { "start":"2025-08-10T18:00:00-05:00","fecha":"2025-08-10","hora":"18:00","tz":"-05:00",
+    "group":"C","grupo":"C","mode":"Bo1","modo":"Bo1",
+    "teams":["Fenix","Bliztec","Arleking","Moonglide"], "jugadores":["Fenix","Bliztec","Arleking","Moonglide"], "winner":"" },
+
+  { "start":"2025-08-10T19:00:00-05:00","fecha":"2025-08-10","hora":"19:00","tz":"-05:00",
+    "group":"C","grupo":"C","mode":"Bo1","modo":"Bo1",
+    "teams":["Diegoyz","Nikillou","Chandon","Reserva3"], "jugadores":["Diegoyz","Nikillou","Chandon","Reserva3"], "winner":"" },
+
+  { "start":"2025-08-10T20:00:00-05:00","fecha":"2025-08-10","hora":"20:00","tz":"-05:00",
+    "group":"D","grupo":"D","mode":"Bo1","modo":"Bo1",
+    "teams":["AESM","ZergAmable","Nachobbi","JohanEspitia"], "jugadores":["AESM","ZergAmable","Nachobbi","JohanEspitia"], "winner":"" },
+
+  { "start":"2025-08-10T21:00:00-05:00","fecha":"2025-08-10","hora":"21:00","tz":"-05:00",
+    "group":"D","grupo":"D","mode":"Bo1","modo":"Bo1",
+    "teams":["Hengore","Ufgark","CloudNine","Reserva4"], "jugadores":["Hengore","Ufgark","CloudNine","Reserva4"], "winner":"" },
+
+  { "start":"2025-08-16T18:00:00-05:00","fecha":"2025-08-16","hora":"18:00","tz":"-05:00",
+    "group":"A","grupo":"A","mode":"Bo1","modo":"Bo1",
+    "teams":["Elbeta","T4v0","Reserva1","McPollo"], "jugadores":["Elbeta","T4v0","Reserva1","McPollo"], "winner":"" },
+
+  { "start":"2025-08-16T19:00:00-05:00","fecha":"2025-08-16","hora":"19:00","tz":"-05:00",
+    "group":"B","grupo":"B","mode":"Bo1","modo":"Bo1",
+    "teams":["Reserva2","LoaLegitimo","Settax","Izzyko"], "jugadores":["Reserva2","LoaLegitimo","Settax","Izzyko"], "winner":"" },
+
+  { "start":"2025-08-16T20:00:00-05:00","fecha":"2025-08-16","hora":"20:00","tz":"-05:00",
+    "group":"A","grupo":"A","mode":"Bo1","modo":"Bo1",
+    "teams":["Alanrogamer","Fallen","Kisestyle","Corlione"], "jugadores":["Alanrogamer","Fallen","Kisestyle","Corlione"], "winner":"" },
+
+  { "start":"2025-08-16T21:00:00-05:00","fecha":"2025-08-16","hora":"21:00","tz":"-05:00",
+    "group":"B","grupo":"B","mode":"Bo1","modo":"Bo1",
+    "teams":["Perro","Chiclezito","Andreslopera","Rafa"], "jugadores":["Perro","Chiclezito","Andreslopera","Rafa"], "winner":"" },
+
+  { "start":"2025-08-17T18:00:00-05:00","fecha":"2025-08-17","hora":"18:00","tz":"-05:00",
+    "group":"C","grupo":"C","mode":"Bo1","modo":"Bo1",
+    "teams":["Fenix","Moonglide","Chandon","Reserva3"], "jugadores":["Fenix","Moonglide","Chandon","Reserva3"], "winner":"" },
+
+  { "start":"2025-08-17T19:00:00-05:00","fecha":"2025-08-17","hora":"19:00","tz":"-05:00",
+    "group":"D","grupo":"D","mode":"Bo1","modo":"Bo1",
+    "teams":["Sora","AESM","Ufgark","Reserva4"], "jugadores":["Sora","AESM","Ufgark","Reserva4"], "winner":"" },
+
+  { "start":"2025-08-17T20:00:00-05:00","fecha":"2025-08-17","hora":"20:00","tz":"-05:00",
+    "group":"C","grupo":"C","mode":"Bo1","modo":"Bo1",
+    "teams":["Arleking","Bliztec","Diegoyz","Nikillou"], "jugadores":["Arleking","Bliztec","Diegoyz","Nikillou"], "winner":"" },
+
+  { "start":"2025-08-17T21:00:00-05:00","fecha":"2025-08-17","hora":"21:00","tz":"-05:00",
+    "group":"D","grupo":"D","mode":"Bo1","modo":"Bo1",
+    "teams":["Nachobbi","JohanEspitia","Hengore","CloudNine"], "jugadores":["Nachobbi","JohanEspitia","Hengore","CloudNine"], "winner":"" },
+
+  { "start":"2025-08-23T18:00:00-05:00","fecha":"2025-08-23","hora":"18:00","tz":"-05:00",
+    "group":"A","grupo":"A","mode":"Bo1","modo":"Bo1",
+    "teams":["Elbeta","Alanrogamer","McPollo","Kisestyle"], "jugadores":["Elbeta","Alanrogamer","McPollo","Kisestyle"], "winner":"" },
+
+  { "start":"2025-08-23T19:00:00-05:00","fecha":"2025-08-23","hora":"19:00","tz":"-05:00",
+    "group":"B","grupo":"B","mode":"Bo1","modo":"Bo1",
+    "teams":["Settax","Chiclezito","Izzyko","Reserva1"], "jugadores":["Settax","Chiclezito","Izzyko","Reserva1"], "winner":"" },
+
+  { "start":"2025-08-23T20:00:00-05:00","fecha":"2025-08-23","hora":"20:00","tz":"-05:00",
+    "group":"A","grupo":"A","mode":"Bo1","modo":"Bo1",
+    "teams":["T4v0","Fallen","Corlione","Reserva2"], "jugadores":["T4v0","Fallen","Corlione","Reserva2"], "winner":"" },
+
+  { "start":"2025-08-23T21:00:00-05:00","fecha":"2025-08-23","hora":"21:00","tz":"-05:00",
+    "group":"B","grupo":"B","mode":"Bo1","modo":"Bo1",
+    "teams":["LoaLegitimo","Perro","Andreslopera","Reserva3"], "jugadores":["LoaLegitimo","Perro","Andreslopera","Reserva3"], "winner":"" },
+
+  { "start":"2025-08-24T18:00:00-05:00","fecha":"2025-08-24","hora":"18:00","tz":"-05:00",
+    "group":"C","grupo":"C","mode":"Bo1","modo":"Bo1",
+    "teams":["Moonglide","Chandon","Arleking","Bliztec"], "jugadores":["Moonglide","Chandon","Arleking","Bliztec"], "winner":"" },
+
+  { "start":"2025-08-24T19:00:00-05:00","fecha":"2025-08-24","hora":"19:00","tz":"-05:00",
+    "group":"D","grupo":"D","mode":"Bo1","modo":"Bo1",
+    "teams":["CloudNine","Sora","Ufgark","Reserva4"], "jugadores":["CloudNine","Sora","Ufgark","Reserva4"], "winner":"" },
+
+  { "start":"2025-08-24T20:00:00-05:00","fecha":"2025-08-24","hora":"20:00","tz":"-05:00",
+    "group":"D","grupo":"D","mode":"Bo1","modo":"Bo1",
+    "teams":["Hengore","JohanEspitia","Nachobbi","AESM"], "jugadores":["Hengore","JohanEspitia","Nachobbi","AESM"], "winner":"" }
+]

@@ -1,0 +1,49 @@
+[
+  {
+    "grupo": "A",
+    "jugadores": [
+      { "nombre": "Alanrogamer", "puntos": 10 },
+      { "nombre": "Elbeta",      "puntos": 8 },
+      { "nombre": "McPollo",      "puntos": 6 },
+      { "nombre": "Kisestyle",   "puntos": 3 },
+      { "nombre": "Fallen",      "puntos": 5 },
+      { "nombre": "Corlione",      "puntos": 4 },
+      { "nombre": "T4v0", "puntos": 5 }
+    ]
+  },
+  {
+    "grupo": "B",
+    "jugadores": [
+      { "nombre": "LoaLegitimo", "puntos": 7 },
+      { "nombre": "Settax",        "puntos": 4 },
+      { "nombre": "Andreslopera","puntos": 5 },
+      { "nombre": "Rafa",        "puntos": 4 },
+      { "nombre": "Chiclezito",        "puntos": 4 },
+      { "nombre": "Perro",        "puntos": 3 },
+      { "nombre": "Yzziko",        "puntos": 2 }
+    ]
+  },
+  {
+    "grupo": "C",
+    "jugadores": [
+      { "nombre": "Moonglide", "puntos": 7 },
+      { "nombre": "Chandon",   "puntos": 2 },
+      { "nombre": "Arleking",  "puntos": 9 },
+      { "nombre": "Diegoyz",   "puntos": 5 },
+      { "nombre": "Fenix",  "puntos": 4 },
+      { "nombre": "BliztecC",   "puntos": 6 }
+    ]
+  },
+  {
+    "grupo": "D",
+    "jugadores": [
+      { "nombre": "CloudNine", "puntos": 5 },
+      { "nombre": "Ufgark",    "puntos": 4 },
+      { "nombre": "Sora",  "puntos": 7 },
+      { "nombre": "AESM",  "puntos": 5 },
+      { "nombre": "JohanEspitia",  "puntos": 8 },
+      { "nombre": "Nachobbi",  "puntos": 5 },
+      { "nombre": "Hengore",   "puntos": 5 }
+    ]
+  }
+]

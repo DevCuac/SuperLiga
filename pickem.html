@@ -1,69 +1,104 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Pick'em - Latin Chaos</title>
-  <link rel="stylesheet" href="estilos/styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook&display=swap" rel="stylesheet">
-  <script src="js/env.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabaseClient.js"></script>
-  <script defer src="js/pickem.js"></script>
+  <meta charset="UTF-8" />
+  <title>Pick’em - Latin Chaos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="estilos/styles.css" />
+  <style>
+    .page { max-width:1200px; margin:1.6rem auto; padding:0 1rem; display:grid; grid-template-columns: 1fr 320px; gap:1.2rem; }
+    @media (max-width: 1024px){ .page{ grid-template-columns: 1fr; } }
+
+    .panel { padding:1rem; }
+    .panel h2 { margin:.2rem 0 1rem; color:var(--gold-soft); font-family:'UnifrakturCook',serif; }
+    .panel h3 { margin:.2rem 0 .8rem; color:var(--gold-soft); }
+
+    .match-list{ display:grid; gap:1rem; }
+    .pick-card { position:relative; overflow:hidden; padding:1rem; border:1px solid rgba(255,215,0,.4); border-radius:12px; background:rgba(20,20,20,0.6); }
+    .pick-card:hover{ transform:scale(1.02); transition:transform .2s ease; }
+    .pick-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:.6rem; color:#ddd; }
+    .pick-options label{ display:block; margin:.3rem 0; font-size:1rem; color:#fff; cursor:pointer; }
+    .pick-options input[type="radio"]{ margin-right:.5rem; accent-color:#ffb200; width:18px; height:18px; }
+
+    .help { font-size:.92rem; color:var(--muted); }
+  </style>
 </head>
 <body>
-  <header class="navbar">
-    <img src="img/logo.png" class="logo" alt="Latin Chaos">
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="grupos.html">Grupos</a></li>
-        <li><a href="llaves.html">Llaves</a></li>
-        <li><a href="pickem.html">Pickem</a></li>
-        <li><a href="partidas.html">Estadísticas</a></li>
-        <li><a href="ranking.html">Ranking</a></li>
-        <li><a href="ranking.html">Calendario</a></li>
-      </ul>
-    </nav>
+  <!-- NAVBAR -->
+  <header class="lc-navbar">
+    <div class="lc-nav-inner">
+      <div class="lc-brand">
+        <img src="img/logo.png" alt="Latin Chaos" />
+        <span>Latin Chaos</span>
+      </div>
+      <nav class="lc-menu">
+        <a href="index.html">Inicio</a>
+        <a href="grupos.html">Grupos</a>
+        <a href="calendario.html">Calendario</a>
+        <a href="resultados.html">Resultados</a>
+        <a class="active" href="pickem.html">Pick’em</a>
+        <a href="tops.html">Tops</a>
+        <a href="apuestas.html">Apuestas</a>
+      </nav>
+
+      <!-- Bloque de autenticación -->
+      <div class="lc-auth">
+        <a id="nav-login" class="btn" href="auth.html">Iniciar sesión</a>
+        <a id="nav-panel" class="btn" href="panel.html" style="display:none">Panel</a>
+      </div>
+    </div>
   </header>
-  <main>
-    <form id="pickem-form">
-      <label for="nombre">Tu nombre:</label>
-      <input type="text" id="nombre" required>
 
-      <div class="info-box">
-        <h3>Grupo A</h3>
-        <select id="grupoA">
-          <option value="">Selecciona un jugador</option>
-          <option value="Jugador1">Jugador1</option>
-          <option value="Jugador2">Jugador2</option>
-          <option value="Jugador3">Jugador3</option>
-          <option value="Jugador4">Jugador4</option>
-        </select>
+  <main class="page">
+    <!-- Columna principal: lista de partidas -->
+    <section>
+      <div class="scoreboard card panel">
+        <div class="group-header">TUS PREDICCIONES</div>
+        <div class="toolbar" style="display:flex;gap:.6rem;align-items:center;justify-content:space-between;margin:.25rem 0 8px;">
+          <div class="left" style="display:flex;gap:.6rem;align-items:center;">
+            <label class="small">Ver:
+              <select id="pick-filter" style="background:#0f1217;border:1px solid #2a2d35;color:#e9edf2;border-radius:8px;padding:.3rem .5rem">
+                <option value="open" selected>Abiertos</option>
+                <option value="all">Todos</option>
+                <option value="locked">Bloqueados</option>
+              </select>
+            </label>
+            <span id="stats-inline" class="small"></span>
+          </div>
+
+          <!-- BOTÓN DE CONFIRMACIÓN -->
+          <button class="btn btn-primary" id="btn-submit-picks">Confirmar mi Pick’em</button>
+        </div>
+
+        <p class="help">
+          Elige tu ganador para cada duelo. Los picks se <b>cierran</b> 5 minutos antes del inicio.
+          Guardamos en tu navegador; cuando pulses <b>Confirmar</b> subiremos tu Pick’em al ranking.
+        </p>
       </div>
 
-      <div class="info-box">
-        <h3>Grupo B</h3>
-        <select id="grupoB">
-          <option value="">Selecciona un jugador</option>
-          <option value="Jugador5">Jugador5</option>
-          <option value="Jugador6">Jugador6</option>
-          <option value="Jugador7">Jugador7</option>
-          <option value="Jugador8">Jugador8</option>
-        </select>
+      <!-- AQUÍ RENDERIZA pickem.js -->
+      <div id="pickem-list" class="match-list"></div>
+    </section>
+
+    <!-- Columna lateral -->
+    <aside>
+      <div id="pickem-auth-guard" class="card panel" style="display:none">
+        <h2>Necesitas iniciar sesión</h2>
+        <p>Para participar en el Pick’em, inicia sesión con tu cuenta.</p>
+        <a class="btn btn-primary" href="auth.html?returnTo=pickem.html">Iniciar sesión</a>
       </div>
 
-      <div class="info-box">
-        <h3>Grupo C</h3>
-        <select id="grupoC">
-          <option value="">Selecciona un jugador</option>
-          <option value="Jugador9">Jugador9</option>
-          <option value="Jugador10">Jugador10</option>
-          <option value="Jugador11">Jugador11</option>
-          <option value="Jugador12">Jugador12</option>
-        </select>
+      <div class="card panel">
+        <h3>Reglas Pick’em</h3>
+        <p class="help">1 punto por acierto. Empates (si existieran) no suman. El ranking global de la landing usa tu envío en la nube.</p>
       </div>
-
-      <button type="button" onclick="guardarPicks()">Guardar Picks</button>
-    </form>
+    </aside>
   </main>
+
+  <script type="module" src="js/firebaseClient.js"></script>
+  <script src="js/pickem.js" defer></script>
+  <script src="js/nav-auth.js" defer></script>
+  <script type="module" src="js/auth-ui.js"></script>
 </body>
 </html>
